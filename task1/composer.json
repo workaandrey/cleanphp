@@ -1,0 +1,20 @@
+{
+    "name": "cleanphp/school-store",
+    "description": "School store app base on clean architecture",
+    "type": "project",
+    "minimum-stability": "dev",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "SchoolStore\\": "src/"
+        }
+    },
+    "autoload-dev":{
+        "psr-4":{
+            "SchoolStore\\Fake\\":"fake/"
+        }
+    },
+    "require": {
+        "phpunit/phpunit": "^7.0"
+    }
+}
