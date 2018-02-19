@@ -6,15 +6,19 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "SchoolStore\\": "src/"
+            "SchoolStore\\": "core/"
         }
     },
     "autoload-dev":{
         "psr-4":{
-            "SchoolStore\\Fake\\":"fake/"
+            "SchoolStore\\Fake\\":"fake/",
+            "SchoolStore\\App\\":"app/"
         }
     },
     "require": {
-        "phpunit/phpunit": "^7.0"
+        "phpunit/phpunit": "^7.0",
+        "filp/whoops": "~2.1",
+        "patricklouys/http": "~1.4",
+        "nikic/fast-route": "dev-master"
     }
 }
