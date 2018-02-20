@@ -8,4 +8,7 @@ namespace SchoolStore\Domain\Repository;
  */
 interface ValueRepositoryInterface extends RepositoryInterface
 {
+
+    public function getAllByProductId($id);
+
 }

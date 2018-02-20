@@ -19,6 +19,7 @@
         "phpunit/phpunit": "^7.0",
         "filp/whoops": "~2.1",
         "patricklouys/http": "~1.4",
-        "nikic/fast-route": "dev-master"
+        "nikic/fast-route": "dev-master",
+        "rdlowrey/auryn": "dev-master"
     }
 }

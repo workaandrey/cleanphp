@@ -52,11 +52,7 @@ abstract class AbstractTable implements RepositoryInterface
     public function getAll()
     {
         $res = $this->gateway->query("select * from {$this->table}");
-        $rows = [];
-        while ($row = $res->fetch(\PDO::FETCH_ASSOC)) {
-            $rows[] = $row;
-        }
-        return $rows;
+        return $res->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     /**

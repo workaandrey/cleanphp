@@ -13,6 +13,12 @@ class CategoryEntity extends AbstractEntity
      */
     private $name;
 
+    public function __construct($id, $name)
+    {
+        $this->id = $id;
+        $this->name = $name;
+    }
+
     /**
      * @return mixed
      */
@@ -29,5 +35,16 @@ class CategoryEntity extends AbstractEntity
     {
         $this->name = $name;
         return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function toArray()
+    {
+        return [
+            'id' => $this->getId(),
+            'name' => $this->getName()
+        ];
     }
 }

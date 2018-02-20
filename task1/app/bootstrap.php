@@ -21,14 +21,13 @@ if ($environment !== 'production') {
 }
 $whoops->register();
 
-$request = new \Http\HttpRequest($_GET, $_POST, $_COOKIE, $_FILES, $_SERVER);
-$response = new \Http\HttpResponse;
 $dbh = new PDO($config['db']['dsn'], $config['db']['username'], $config['db']['password']);
 
-$categoryRepository = new \SchoolStore\Persistence\MySql\CategoryTable($dbh);
-$productRepository = new \SchoolStore\Persistence\MySql\ProductTable($dbh);
-$attributeRepository = new \SchoolStore\Persistence\MySql\AttributeTable($dbh);
-$valueRepository = new \SchoolStore\Persistence\MySql\ValueTable($dbh);
+$injector = include('dependencies.php');
+$injector->share($dbh);
+
+$request = $injector->make('Http\HttpRequest');
+$response = $injector->make('Http\HttpResponse');
 
 $routeDefinitionCallback = function (\FastRoute\RouteCollector $r) {
     $routes = include('routes.php');
@@ -54,8 +53,14 @@ switch ($routeInfo[0]) {
         $method = $routeInfo[1][1];
         $vars = $routeInfo[2];
 
-        $class = new $className($request, $response, $categoryRepository, $productRepository, $attributeRepository, $valueRepository);
-        $class->$method($vars);
+        $class = $injector->make($className);
+
+        $params = [];
+        foreach ($vars as $k => $v) {
+            $params[':' . $k] = $v;
+        }
+
+        $injector->execute([$class, $method], $params);
         break;
 }
 

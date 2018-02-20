@@ -24,12 +24,15 @@ class ProductEntity extends AbstractEntity
     private $category;
 
     /**
+     * ProductEntity constructor.
+     * @param $id
+     * @param $name
      * @param CategoryEntity $category
-     * @param string $name
      * @param ValueEntity[] $values
      */
-    public function __construct(CategoryEntity $category, $name, $values)
+    public function __construct($id, $name, CategoryEntity $category,  $values)
     {
+        $this->id = $id;
         $this->category = $category;
         $this->values = new \SplObjectStorage();
         $this->name = $name;
@@ -51,6 +54,23 @@ class ProductEntity extends AbstractEntity
         }
 
         return join(', ', $text);
+    }
+
+    /**
+     * @return array
+     */
+    public function toArray()
+    {
+        $attributes = [];
+        foreach ($this->values as $value) {
+            $attributes = array_merge($attributes, $value->toArray());
+        }
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'category' => $this->category->toArray(),
+            'attributes' => $attributes
+        ];
     }
 
     /**

@@ -20,10 +20,12 @@ class AttributeEntity extends AbstractEntity
 
     /**
      * AttributeEntity constructor.
+     * @param $id
      * @param $name
      */
-    public function __construct($name)
+    public function __construct($id, $name)
     {
+        $this->id = $id;
         $this->values = new \SplObjectStorage();
         $this->name = $name;
     }
