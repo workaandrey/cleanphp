@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Feb 19, 2018 at 07:23 PM
+-- Generation Time: Feb 20, 2018 at 08:04 PM
 -- Server version: 5.7.20-0ubuntu0.16.04.1
 -- PHP Version: 5.6.32-1+ubuntu16.04.1+deb.sury.org+1
 
@@ -81,9 +81,10 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `name`, `category_id`) VALUES
-(1, 'Book #1', 1),
+(1, 'Captain Blood', 1),
 (2, 'Book #2', 1),
-(3, 'Pen #1', 2);
+(3, 'Pen #1', 2),
+(4, 'Notebook with hard cover', 3);
 
 -- --------------------------------------------------------
 
@@ -97,6 +98,24 @@ CREATE TABLE `values` (
   `attribute_id` int(10) UNSIGNED NOT NULL,
   `value` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `values`
+--
+
+INSERT INTO `values` (`id`, `product_id`, `attribute_id`, `value`) VALUES
+(1, 0000000001, 8, 'Rafael Sabatini'),
+(2, 0000000002, 8, 'Noname'),
+(3, 0000000001, 9, '1913'),
+(4, 0000000001, 10, '9781539014447'),
+(5, 0000000002, 9, '2004'),
+(6, 0000000002, 10, '9781406542615'),
+(7, 0000000003, 11, 'Erich Krause'),
+(8, 0000000003, 12, 'EKP'),
+(9, 0000000003, 13, 'Red'),
+(10, 0000000004, 11, 'Made in China'),
+(11, 0000000004, 12, 'OIBS-12'),
+(12, 0000000004, 14, 'Hard');
 
 --
 -- Indexes for dumped tables
@@ -147,12 +166,12 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `values`
 --
 ALTER TABLE `values`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- Constraints for dumped tables
 --
