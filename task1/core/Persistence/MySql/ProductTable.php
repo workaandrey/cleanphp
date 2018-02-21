@@ -1,6 +1,7 @@
 <?php
 namespace SchoolStore\Persistence\MySql;
 
+use function foo\func;
 use SchoolStore\Domain\Entity\AttributeEntity;
 use SchoolStore\Domain\Entity\CategoryEntity;
 use SchoolStore\Domain\Entity\ProductEntity;
@@ -59,6 +60,28 @@ class ProductTable extends AbstractTable implements ProductRepositoryInterface
         return array_map(function($product) {
             return $this->loadFromArray($product);
         }, $sth->fetchAll(\PDO::FETCH_ASSOC));
+    }
+
+    /**
+     * @param array $filter
+     * @return array
+     */
+    public function getByFilter(array $filter)
+    {
+        $attributesMap = $this->attributeRepository->getAttributesMap();
+        $whereParams = [];
+        foreach ($filter as $attribute => $value) {
+            $whereParams[] = sprintf('exists (SELECT id FROM `values` AS v WHERE p.id = v.product_id AND v.attribute_id = %d AND v.`value` = "%s")', $attributesMap[$attribute], $value);
+        }
+        $where = implode(' AND ', $whereParams);
+        $sql = <<<SQL
+SELECT p.* FROM products AS p
+WHERE {$where}
+SQL;
+        $res = $this->gateway->query($sql);
+        return array_map(function($product) {
+            return $this->loadFromArray($product);
+        }, $res->fetchAll(\PDO::FETCH_ASSOC));
     }
 
     /**
